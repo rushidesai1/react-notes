@@ -1,2 +1,2 @@
 # react-notes
-a react practice app based on Lynda.com's https://www.lynda.com/React-js-tutorials
+A react practice repository based on Lynda.com's https://www.lynda.com/React-js-tutorials
