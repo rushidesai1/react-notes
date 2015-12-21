@@ -14,13 +14,17 @@
 	<script type="text/jsx">
 		var MyComponent = React.createClass({
 			render: function() {
-				return <div>My React Component</div>;
+				return <div>
+						<h1>{this.props.text}</h1>
+						<p>{this.props.children}</p>
+					</div>;
 			}
 		});
 
 		React.render( <div>
-			<MyComponent />
-			<MyComponent />
+			<MyComponent text="Hello world">This is hello</MyComponent>
+			<MyComponent text="how are you?">here is how are you</MyComponent>
+			<MyComponent text="see ya later">goodbye is here</MyComponent>
 			</div>
 			, document.getElementById('react-container'));
 	</script>
