@@ -25,4 +25,4 @@ var Note = React.createClass({
 	}
 });
 
-React.render(<div><Note>Hello World</Note><Note>See ya later World</Note></div>, document.getElementById("react-container"));
+React.render(<div><Note>Hello World</Note><Note>See ya later World</Note><Note>After while crocodile</Note></div>, document.getElementById("react-container"));

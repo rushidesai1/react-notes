@@ -21,6 +21,7 @@ div.board {
 	width: 200px;
 	margin: 10px;
 	background-color: yellow;
+	float: left;
 }
 
 button {
