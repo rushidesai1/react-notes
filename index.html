@@ -1,16 +1,47 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <script src="https://fb.me/react-0.14.3.min.js"></script>
-  <script src="https://fb.me/react-dom-0.14.3.min.js"></script>
-  <title>My First React File</title>
+	<meta charset="utf-8">
+	<script src="https://fb.me/react-0.13.3.min.js"></script>
+	<!-- for whatever reason, JSXTransformer is no longer available in this form-bundled in other react forms? -->
+	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+	<!-- <script src="https://fb.me/react-dom-0.13.3.min.js"></script> -->
+	<!-- can't find jsx transformer -->
+	<title>My First React File</title>
 </head>
 <body>
-  <script>
-    React.render(React.createElement('div', null, 'Hello World!'), 
-      document.body);
-  </script>
+	<script type="text/jsx">
+		/* building react helloworld component */
+		var HelloWorld = React.createClass({
+			render: function () {
+				return (
+					<div>
+						<h1>Hello World!!!</h1>
+						<p>This is some text in the hello world component</p>
+					</div>
+					);
+			}
+		});
+		React.render(<HelloWorld />, document.body);
+
+		// /* Transformed to this output */
+		// var HelloWorld = React.createClass({displayName: "HelloWorld",
+		// 	render: function () {
+		// 		return (
+		// 			React.createElement("div", null, 
+		// 				React.createElement("h1", null, "Hello World!!!"), 
+		// 				React.createElement("p", null, "This is some text in the hello world component")
+		// 			)
+		// 			);
+		// 	}
+		// });
+		// React.render(React.createElement(HelloWorld, null), document.body);
+
+	</script>
+	<script>
+		// React.render(React.createElement('div', null, 'Hello World!'), 
+		// document.body);
+	</script>
 
 </body>
 </html>
