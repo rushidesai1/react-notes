@@ -9,10 +9,21 @@ div#react-container {
 
 body {
 	margin: 0;
-	padding: 0;
 }
 
 div.board {
 	background-color: teal;
 	width: 100%;
+}
+
+.note {
+	height: 200px;
+	width: 200px;
+	margin: 10px;
+	background-color: yellow;
+}
+
+button {
+	/*vertical-align: bottom;*/
+	/*margin: auto 0 0 auto;*/
 }
