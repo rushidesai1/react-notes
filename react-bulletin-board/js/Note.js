@@ -2,8 +2,17 @@ var Note = React.createClass({
 	getInitialState: function () {
 		return {editing: false};
 	},
-	create: function() {
-		alert('creating new note');
+	// react function, componentn Will moutn
+	componentWillMount: function () {
+		this.style = {
+			right: this.randomBetween(0, window.innerWidth - 200) + 'px',
+			top: this.randomBetween(0, window.innerHeight - 200) + 'px',
+			transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
+		};
+	},
+	randomBetween: function(min, max) {
+		console.log("(min + Math.ceil(Math.random() * max))", (min + Math.ceil(Math.random() * max)));
+		return (min + Math.ceil(Math.random() * max));
 	},
 	edit: function() {
 		this.setState({editing: true});
@@ -19,11 +28,10 @@ var Note = React.createClass({
 	},
 	renderDisplay: function() {
 		return (
-			<div className="note">
+			<div className="note"
+				style={this.style}>
 				<p>{this.props.children}</p>
 				<span>
-					<button onClick={this.create} 
-						className="btn btn-success glyphicon glyphicon-plus" />
 					<button onClick={this.edit} 
 						className="btn btn-primary glyphicon glyphicon-pencil" />
 					<button onClick={this.remove}
@@ -34,7 +42,8 @@ var Note = React.createClass({
 	},
 	renderForm: function() {
 		return (
-			<div className="note">
+			<div className="note"
+				style={this.style}>
 				<textarea ref="newText" defaultValue={this.props.children} className="form-control"></textarea>
 				<button onClick={this.save} className="btn btn-success btn-sm glyphicon glyphicon-floppy-disk" />
 			</div>
@@ -65,20 +74,27 @@ var Board = React.createClass({
 	// getInitialState makes whatever is returned a property of this.state
 	getInitialState: function () {
 		return {
-			notes: [
-				'call bill', 
-				'do that thing',
-				'wash dishes',
-				'do another thing'
-			]
+			notes: []
 		};
+	},
+	nextId: function() {
+		this.uniqueId = this.uniqueId || 0;
+		return this.uniqueId++;
+	},
+	create: function(text) {
+		var arr = this.state.notes;
+		arr.push({
+			id: this.nextId(),
+			note: text
+		});
+		this.setState({notes: arr});
 	},
 	// stores state of notes
 	update: function(newText, i) {
 		// get local copy of notes array stored on state
 		var arr = this.state.notes;
 		// update new text in local array of notes
-		arr[i] = newText;
+		arr[i].note = newText;
 		// updates the property notes on state with our updated local arr
 		this.setState({notes: arr});
 	},
@@ -90,11 +106,11 @@ var Board = React.createClass({
 	// change where rendering note, simplifies render
 	eachNote: function(note, i) {
 		return (
-			<Note key={i}
+			<Note key={note.id}
 				index={i}
 				onChange={this.update}
 				onRemove={this.remove}
-			>{note}</Note>
+			>{note.note}</Note>
 			);
 	},
 	render: function() {
@@ -102,6 +118,8 @@ var Board = React.createClass({
 		// heavy lifting of attaching things to Note is done in eachNote
 		return (<div className="board">
 					{this.state.notes.map(this.eachNote)}
+					<button onClick={this.create.bind(null, "New Note")} 
+						className="btn btn-success glyphicon glyphicon-plus" />
 				</div>
 			);
 	}
