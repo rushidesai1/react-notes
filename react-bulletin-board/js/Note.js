@@ -62,9 +62,30 @@ var Board = React.createClass({
 			}
 		}
 	},
-
+	// return a list of notes
+	// getInitialState makes whatever is returned a property of this.state
+	getInitialState: function () {
+		return {
+			notes: [
+				'call bill', 
+				'do that thing',
+				'wash dishes',
+				'do another thing'
+			]
+		};
+	},
 	render: function() {
-		return <div className="board">{this.props.count}</div>
+		// map is usual javascript function
+		// takes in another function and runs all elements of the array through it
+		// how are we inheriting state?
+		return (<div className="board">
+					{this.state.notes.map(function (note, i){
+						return (
+							<Note key={i}>{note}</Note>
+							);
+					})}
+				</div>
+			);
 	}
 });
 
