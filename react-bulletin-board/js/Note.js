@@ -11,12 +11,11 @@ var Note = React.createClass({
 	save: function() {
 		// supposedly React getDOMNode has been deprecated in favor of ReactDOM.FindDOMNode
 		// but that isn't working either
-		var val = this.refs.newText.getDOMNode().value;
-		alert("TODO: save note value " + val);
+		this.props.onChange(this.refs.newText.getDOMNode().value, this.props.index);
 		this.setState({editing: false});
 	},
 	remove: function() {
-		alert('remove note');
+		this.props.onRemove(this.props.index);
 	},
 	renderDisplay: function() {
 		return (
@@ -74,16 +73,35 @@ var Board = React.createClass({
 			]
 		};
 	},
+	// stores state of notes
+	update: function(newText, i) {
+		// get local copy of notes array stored on state
+		var arr = this.state.notes;
+		// update new text in local array of notes
+		arr[i] = newText;
+		// updates the property notes on state with our updated local arr
+		this.setState({notes: arr});
+	},
+	remove: function(i) {
+		var arr = this.state.notes;
+		arr.splice(i, 1);
+		this.setState({notes:arr});
+	},
+	// change where rendering note, simplifies render
+	eachNote: function(note, i) {
+		return (
+			<Note key={i}
+				index={i}
+				onChange={this.update}
+				onRemove={this.remove}
+			>{note}</Note>
+			);
+	},
 	render: function() {
 		// map is usual javascript function
-		// takes in another function and runs all elements of the array through it
-		// how are we inheriting state?
+		// heavy lifting of attaching things to Note is done in eachNote
 		return (<div className="board">
-					{this.state.notes.map(function (note, i){
-						return (
-							<Note key={i}>{note}</Note>
-							);
-					})}
+					{this.state.notes.map(this.eachNote)}
 				</div>
 			);
 	}
