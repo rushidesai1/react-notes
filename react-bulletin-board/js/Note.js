@@ -14,6 +14,10 @@ var Note = React.createClass({
 			transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
 		};
 	},
+	// to drag notes around board
+	componentDidMount: function () {
+		$(this.getDOMNode()).draggable();
+	},
 	// generate a random number between min and max
 	randomBetween: function(min, max) {
 		return (min + Math.ceil(Math.random() * max));
