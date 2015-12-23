@@ -7,14 +7,6 @@
 	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
 	<!-- <script src="https://fb.me/react-dom-0.13.3.min.js"></script> -->
 	<!-- can't find jsx transformer -->
-	
-	<style type="text/css">
-		div {
-			background-color: blue;
-			height: 200px;
-			width: 200px;
-		}
-	</style>
 
 	<title>Component Lifecycle</title>
 </head>
@@ -23,15 +15,27 @@
 	<script type="text/jsx">
 		var Box = React.createClass({
 			componentWillMount: function() {
-				alert("component is about to mount");
 				console.log("component is about to mount");
 			},
 			componentDidMount: function() {
-				alert("component did mount");
 				console.log("component did mount");
 			},
+
+			// sets default properties
+			getDefaultProps: function () {
+				// this way we can apply this style to anything using this.props
+				// don't need to use class or tag name
+				return {
+					backgroundColor: "blue",
+					height: 200,
+					width: 200
+				}
+			},
 			render: function() {
-				return <div></div>;
+				return <div>
+					<div style={this.props}></div>
+					<section style={this.props}></section>
+				</div>;
 				// without jsx or once transformed, this is something like:
 				// React.createElement("div", null);
 			}
@@ -39,13 +43,6 @@
 
 		React.render(<Box />, document.body);
 
-		var getRidOfBox = document.getElementsByTagName('div')[0];
-		// add react code 
-		getRidOfBox.onclick = function () {
-			React.unmountComponentAtNode(document.body);
-				alert("component is unmounted");
-				console.log("component is unmounted");
-		};
 
 	</script>
 
