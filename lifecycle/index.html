@@ -22,7 +22,14 @@
 			},
 
 			// sets default properties
+			// sets initial index to -1, so can be changed on first click
 			getDefaultProps: function () {
+				return {
+					colorIndex: -1
+				}
+			},
+			getInitialState: function () {
+				// moves style from props to state
 				// this way we can apply this style to anything using this.props
 				// don't need to use class or tag name
 				return {
@@ -31,17 +38,31 @@
 					width: 200
 				}
 			},
+			// advance color index on each click
+			update: function () {
+				console.log("clicked so updating this.props.colorIndex", this.props.colorIndex);
+				this.setProps({colorIndex: this.props.colorIndex + 1});
+			},
+
+			// react function, fires in response to property change
+			// can update with new props
+			componentWillReceiveProps: function (nextProps) {
+				var color = this.props.colors.split(',')[nextProps.colorIndex];
+				console.log("componentWillReceiveProps, color:", color);
+				// if this is a bad color index--off end etc, go back to red
+				if (!color) {
+					this.setProps({colorIndex:0});
+				}
+				this.setState({backgroundColor: color});
+			},
 			render: function() {
-				return <div>
-					<div style={this.props}></div>
-					<section style={this.props}></section>
-				</div>;
+				return <div style={this.state} onClick={this.update}></div>;
 				// without jsx or once transformed, this is something like:
 				// React.createElement("div", null);
 			}
 		});
 
-		React.render(<Box />, document.body);
+		React.render(<Box colors="Red,DarkMagenta,Salmon,Chartreuse" />, document.body);
 
 
 	</script>
