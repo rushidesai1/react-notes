@@ -17,8 +17,8 @@ div.board {
 }
 
 div.note {
-	height: 200px;
-	width: 200px;
+	height: 150px;
+	width: 150px;
 	margin: 10px;
 	position: absolute;
 	background-color: yellow;

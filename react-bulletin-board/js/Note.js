@@ -9,8 +9,8 @@ var Note = React.createClass({
 		// generate random position via top/bottom
 		// generate random rotation
 		this.style = {
-			right: this.randomBetween(0, window.innerWidth - 200) + 'px',
-			top: this.randomBetween(0, window.innerHeight - 200) + 'px',
+			right: this.randomBetween(0, window.innerWidth - 150) + 'px',
+			top: this.randomBetween(0, window.innerHeight - 150) + 'px',
 			transform: 'rotate(' + this.randomBetween(-15, 15) + 'deg)'
 		};
 	},
@@ -96,6 +96,19 @@ var Board = React.createClass({
 		this.uniqueId = this.uniqueId || 0;
 		return this.uniqueId++;
 	},
+	// if there is a specified count, load some notes from JSON/ajax
+	componentWillMount: function () {
+		var self = this;
+		console.log(self);
+		if (this.props.count) {
+			$.getJSON("http://baconipsum.com/api/?type=all-meat&sentences=" +
+				this.props.count + "&start-with-lorem=1&callback=?", function (results) {
+					results[0].split('. ').forEach(function(sentence) {
+						self.create(sentence.substring(0,40));
+					})
+				})
+		}
+	},
 	// pass in id and text when creating a note
 	create: function(text) {
 		var arr = this.state.notes;
@@ -143,6 +156,6 @@ var Board = React.createClass({
 	}
 });
 
-React.render(<Board count={10} />, 
+React.render(<Board count={30} />, 
 	document.getElementById("react-container")
 	);
