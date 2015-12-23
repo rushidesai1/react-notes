@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<script src="https://fb.me/react-0.13.3.min.js"></script>
+	<!-- for whatever reason, JSXTransformer is no longer available in this form-bundled in other react forms? -->
+	<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+	<!-- <script src="https://fb.me/react-dom-0.13.3.min.js"></script> -->
+	<!-- can't find jsx transformer -->
+	
+	<style type="text/css">
+		div {
+			background-color: blue;
+			height: 200px;
+			width: 200px;
+		}
+	</style>
+
+	<title>Component Lifecycle</title>
+</head>
+<body>
+	<!-- <div id="react-container"></div> -->
+	<script type="text/jsx">
+		var Box = React.createClass({
+			componentWillMount: function() {
+				alert("component is about to mount");
+				console.log("component is about to mount");
+			},
+			componentDidMount: function() {
+				alert("component did mount");
+				console.log("component did mount");
+			},
+			render: function() {
+				return <div></div>;
+				// without jsx or once transformed, this is something like:
+				// React.createElement("div", null);
+			}
+		});
+
+		React.render(<Box />, document.body);
+
+		var getRidOfBox = document.getElementsByTagName('div')[0];
+		// add react code 
+		getRidOfBox.onclick = function () {
+			React.unmountComponentAtNode(document.body);
+				alert("component is unmounted");
+				console.log("component is unmounted");
+		};
+
+	</script>
+
+</body>
+</html>
+
+
