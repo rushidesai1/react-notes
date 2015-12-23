@@ -1,0 +1,32 @@
+/*style.css*/
+body,
+html,
+div.board,
+div#react-container {
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	margin: 0;
+}
+
+div.board {
+	background-color: teal;
+	width: 100%;
+}
+
+div.note {
+	height: 150px;
+	width: 150px;
+	margin: 10px;
+	position: absolute;
+	background-color: yellow;
+	float: left;
+	box-shadow: 3px 3px 5px 0 black;
+}
+
+button {
+	/*vertical-align: bottom;*/
+	/*margin: auto 0 0 auto;*/
+}

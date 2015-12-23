@@ -1,0 +1,23 @@
+{
+  "name": "react-notes",
+  "version": "0.0.0",
+  "description": "a bulletin board made with react (via Lynda tutorial)",
+  "main": "index.js",
+  "scripts": {
+    "start": "open http://localhost:4321 & httpster -p 4321"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lisavogtsf/react-notes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lisavogtsf/react-notes/issues"
+  },
+  "homepage": "https://github.com/lisavogtsf/react-notes",
+  "dependencies": {
+    "httpster": "^1.0.1",
+    "react-tools": "^0.13.3"
+  }
+}
